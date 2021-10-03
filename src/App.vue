@@ -1,5 +1,33 @@
 <template>
-  <h1>Hello World</h1>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+  <div id="app">
+    
+   <div class="switchableGrid">
+    <div class="container">
+      <!-- top bar -->
+      <div class="bar">
+        <div class="btnHolder">
+          <button class="barActive">
+            <i class="fas fa-th"></i> Change
+          </button>
+        </div>
+      </div>
+      <!-- content -->
+      <div class="content">
+        <!-- grid view -->
+        <ul class="grid">
+          <li v-for="content in contents" :key="content.id">
+            <div class="image">
+              <img :src="content.img" />
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+ </div>
 
 </template>
 
@@ -13,67 +41,198 @@ export default {
 </script>
 
 <style>
+/* 
+general 
+-------
+*/
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+}
+
+body {
+  font: 16px/1.8 "Poppins", sans-serif;
+  color: #333;
+}
+
+.container {
+  max-width: 1170px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.switchableGrid {
+  overflow: hidden;
+  padding: 0 0 80px;
+}
+
+ul {
+  list-style: none;
   margin: 0;
   padding: 0;
 }
 
-html,
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-#app {
-  width: 400px;
-  height: 100vh;
-  margin: auto;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-h1,
-h3 {
-  margin-bottom: 1rem;
-  font-weight: normal;
-}
-
 img {
-  border-radius: 50%;
-  border: 5px #333 solid;
-  margin-bottom: 1rem;
+  max-width: 100%;
+  height: auto;
+  vertical-align: top;
 }
 
-.male {
-  border-color: steelblue;
-  background-color: steelblue;
+/* 
+bar 
+---
+*/
+.bar {
+  position: relative;
+  padding: 20px 0;
+  margin: 0 0 40px;
+  text-align: right;
 }
 
-.female {
-  border-color: pink;
-  background-color: pink;
-  color: #333;
-}
-
-button {
-  cursor: pointer;
-  display: inline-block;
+.bar:before {
+  content: '';
   background: #333;
-  color: white;
-  font-size: 18px;
-  border: 0;
-  padding: 1rem 1.5rem;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -999px;
+  right: -999px;
 }
 
-button:focus {
+.bar .btnHolder {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.bar button {
+  background: #fff;
+  border: 0;
+  display: block;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin: 0 0 0 10px;
+  font: 14px/1.8 "Poppins", sans-serif;
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+}
+
+.bar button.barActive,
+.bar button:hover,
+.bar button:focus {
+  transition: all 0.3s linear;
+  background: #ff6b6b;
+  color: #fff;
   outline: none;
 }
 
-button:hover {
-  transform: scale(0.98);
+.bar button i {
+  margin: 0 5px 0 0;
+}
+
+/* 
+grid view 
+---------
+*/
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -10px;
+}
+
+.grid li {
+  width: 25%;
+  padding: 10px;
+  position: relative;
+}
+
+.grid li .image {
+  overflow: hidden;
+}
+
+.grid li img {
+  transition: transform 0.3s linear;
+}
+
+.grid li img:hover {
+  transform: scale(1.1);
+}
+
+/* 
+list view 
+---------
+*/
+.list li {
+  border-bottom: 1px solid #ddd;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.list li:hover {
+  background: #f9f9f9;
+}
+
+.list img {
+  width: 160px;
+  height: 190px;
+  float: left;
+  margin: 0 20px 0 0;
+}
+
+.list .listContent {
+  display: block;
+  overflow: hidden;
+}
+
+.list h2 {
+  font-size: 20px;
+  font-weight: 400;
+  color: #ff6b6b;
+  margin: 0 0 5px;
+}
+
+.list .listContent p {
+  margin: 0 0 20px;
+}
+
+.list .btn {
+  background: #ff6b6b;
+  padding: 5px 20px;
+  display: inline-block;
+  vertical-align: top;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 3px;
+  font-size: 14px;
+  transition: background 0.3s linear;
+}
+
+.list .btn:hover {
+  background: #ca3030;
+}
+
+/* 
+responsive
+----------
+*/
+@media only screen and (max-width: 639px) {
+  body {
+    font-size: 14px;
+  }
+  
+  .grid li {
+    width: 50%;
+  }
+
+  .list li {
+    padding: 20px 0;
+  }
+
+  .list img {
+    width: 100px;
+    height: 120px;
+  }
 }
 
 </style>
